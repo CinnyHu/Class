@@ -1,6 +1,8 @@
-# Class
-# Self Introduction
-* 課程名:資訊科學程序設計
+# Data-Science Programming
+> ### --資料科學程序設計
+## Introduction
+----
+### Abbout Me
 * 姓名：胡煜欣
 * 學校：臺灣師範大學
 * 科系年級：物理系 大一
