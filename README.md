@@ -14,14 +14,14 @@
 ## Progress
 > ### Week 1
  19/7/8
- * In Class
+ * In class
    * Create a GitHub account,learn how to operate it
    * Learn R
  * At home
    * Download GitHub & R
    * Editing ReadMe
    * Review
-   * Finish my work -> Class Work<br>
+   * Finish my work -> [Class Work](https://cinnyhu.github.io/Class/Week1/no_title.html)<br>
 
  19/7/11
 <br>
