@@ -7,7 +7,8 @@
 * 姓名：胡煜欣
 * 學校：國立臺灣師範大學
 * 科系年級：物理系 大一
-* 學號：40741106S<br>
+* 學號：40741106S
+<br>
 
 > ### About My Work
 * Editing my code is allowed
