@@ -14,9 +14,14 @@
 ## Progress
 > ### Week 1
  19/7/8
- * Create a GitHub account,learn how to operate it
- * Learn R
- * Finish my work -> Class Work<br>
+ * In Class
+   * Create a GitHub account,learn how to operate it
+   * Learn R
+ * At home
+   * Download GitHub & R
+   * Editing ReadMe
+   * Review
+   * Finish my work -> Class Work<br>
 
  19/7/11
 <br>
