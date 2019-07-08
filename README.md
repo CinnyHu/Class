@@ -7,10 +7,12 @@
 * 姓名：胡煜欣
 * 學校：臺灣師範大學
 * 科系年級：物理系 大一
-* 學號：
+* 學號：40741106S<br>
+
 > ### About My Work
 * Editing my code is allowed
-* I am not responsible for any damage caused by using my work
+* I am not responsible for any damage caused by using my work<br>
+
 ## Progress
 > ### Week 1
  19/7/8
