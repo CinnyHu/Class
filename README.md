@@ -28,6 +28,9 @@
    * Finish my work -> [Class Work](https://cinnyhu.github.io/Class/Week1/no_title.html)<br>
    
  19/7/11
+ * In class
+   * Learn how to tidy data(<<[R for Data Science](https://r4ds.had.co.nz/)>>)
+ * At home
 <br>
 
 > ### Week 2
