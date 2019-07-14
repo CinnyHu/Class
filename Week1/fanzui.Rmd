@@ -1,0 +1,67 @@
+---
+title: "毒品&犯罪"
+author: "CinnyHu"
+date: "2019/7/15"
+output: html_document
+---
+### #動機  
+找資料時無意翻到犯罪資料,頓時好奇吸毒是否會助長犯罪,於是便以此為題。[資料來源](https://data.gov.tw/dataset/14200)
+
+### #代碼  
+1.library匯入
+```{r }
+library(dplyr)
+library(tidyverse)
+```
+2.讀入csv檔
+```{r  }
+survey <- read_csv("fanzui.csv")
+```
+```{r}
+head(survey)
+```
+
+3.篩選自己要的資料(僅以新北市為例)
+```{r}
+##篩選oc_p1這欄變數含新北市的數據
+t_xb = filter(survey, grepl("新北市", survey$oc_p1) == TRUE)
+##看看效果
+head(t_xb)
+```
+```{r}
+##計算該市總案件數
+t_xb%>%
+nrow()%>%
+  toString()%>%
+  paste('案件數：',.,'件')%>%
+  print()
+```
+```{r}
+##再篩該市毒品案件數
+d_xb = filter(survey, grepl("新北市", survey$oc_p1) == TRUE&grepl("毒品", survey$type) == TRUE)%>%
+##同上算法
+  nrow()%>%
+  toString()%>%
+  paste('案件數：',.,'件')%>%
+  print()
+```
+```{r}
+##建Excel錄入各市毒品案件數,總案件數
+zhengE<-read_csv("zhengE.csv")
+head(zhengE)
+##這裡讀入遇到一堆麻煩,前幾次讀入都是NA,根據網上的方法,在Excel檔最後空一行,總算讀進去了,但中文仍是亂碼,無奈之餘全改英文;w;
+```
+4.觀察數據
+```{r}
+##新建百分比數據欄,方便查看
+zhengE%>%
+    mutate(rate=drug/total)
+##畫個圖
+ggplot(data = zhengE) + 
+  geom_point(mapping = aes(x = total, y = drug, color = location)) 
+```
+
+
+### #結語  
+其實做到最後發現這不能證明什麼,頂多就是台灣近一半犯罪的人都是吸毒/販毒的。要想看犯罪跟毒品的關係,必須要逐日記下各案件數逐一對比看犯罪增長或削減是否和毒品成正相關。至於為啥不做,本人現在技術不成熟,力不從心,而且現在有點困,來日方長,再說吧。  
+  * 感謝你的閱讀OwO
