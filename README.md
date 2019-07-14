@@ -31,6 +31,8 @@
  * In class
    * Learn how to tidy data(<<[R for Data Science](https://r4ds.had.co.nz/)>>)
  * At home
+   * Learn R
+   * Finishing my lovely [H.W.](https://cinnyhu.github.io/Class/Week1/fanzui.html)
 <br>
 
 > ### Week 2
