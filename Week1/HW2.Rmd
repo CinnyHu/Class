@@ -1,0 +1,116 @@
+---
+title: "毒品與犯罪相關性探究"
+author: "CinnyHu"
+date: "2019/7/18"
+output: html_document
+---
+## #前言  
+根據上次作業末的構想,這次首先將資料重新整理,按日期分類,再逐一觀察其相關性。
+
+
+## #代碼  
+1.Library匯入
+```{r}
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(scales)
+```
+
+2.讀入資料
+```{r}
+a<-read_csv("fanzui.csv")
+```
+3.重新整理  
+  
+  (1)一到三月每日全台毒品案件數
+```{r}
+#用循環整理
+#下為一月數據
+i<-1040101        #按照資料的寫法好查找
+v=vector(mode="double",length=31)       #類似C的一維數組
+for(i in c(1040101:1040131)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == TRUE)
+  b<-i-1040100        #下標好查詢
+  v[b]<-count(a_D)
+}
+t1d <- tibble(date=ymd(20150101:20150131),cases=as.integer(v[1:31])) #建tibble,日期重建、數量轉為整數為了方便之後畫圖
+#下面步驟同上,分別是二月和三月的數據
+i<-1040301
+for(i in c(1040301:1040331)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == TRUE)
+  b<-i-1040300
+  v[b]<-count(a_D)
+}
+t3d <- tibble(date=ymd(20150301:20150331),cases=as.integer(v[1:31]))
+i<-1040228
+v=vector(mode="double",length=28)
+for(i in c(1040201:1040228)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == TRUE)
+  b<-i-1040200
+  v[b]<-count(a_D)
+}
+t2d <- tibble(date=ymd(20150201:20150228),cases=as.integer(v[1:28]))
+#將這三個月的數據合併
+td<-(t1d%>%
+       bind_rows(t2d)%>%
+       bind_rows(t3d))
+```
+  (2)一到三月全台非毒品案件數
+```{r}
+#跟上面一樣
+i<-1040101
+v=vector(mode="double",length=31)
+for(i in c(1040101:1040131)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == FALSE)
+  b<-i-1040100
+  v[b]<-count(a_D)
+}
+t1t <- tibble(date=ymd(20150101:20150131),cases=as.integer(v[1:31]))
+i<-1040301
+for(i in c(1040301:1040331)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == FALSE)
+  b<-i-1040300
+  v[b]<-count(a_D)
+}
+t3t <- tibble(date=ymd(20150301:20150331),cases=as.integer(v[1:31]))
+i<-1040228
+v=vector(mode="double",length=28)
+for(i in c(1040201:1040228)){ 
+  a_D = filter(a, grepl(i, a$oc_dt) == TRUE&grepl("毒品", a$type) == FALSE)
+  b<-i-1040200
+  v[b]<-count(a_D)
+}
+t2t <- tibble(date=ymd(20150201:20150228),cases=as.integer(v[1:28]))
+tt<-(t1t%>%
+       bind_rows(t2t)%>%
+       bind_rows(t3t))
+```
+4.畫圖  
+  
+這裡我必須糾正上一次作業的說法,毒品與其他案件應該成負相關：試想,如果涉毒的人被抓了,那麼犯罪應該降低, 而不是增多。  
+  
+  (1)折線圖  
+```{r}
+ggplot()+geom_line(data=td,aes(x=date,y=cases,colour="毒品"),group=1)+geom_line(data=tt,aes(x=date,y=cases,colour="其餘案件"),group=1)+scale_colour_manual("",values = c("毒品" = hue_pal()(4)[1],"其餘案件" = hue_pal()(4)[3]))+labs(x="",y="案件數",title="104年台灣毒品與案件折線圖")+theme_bw()+theme(panel.border = element_blank())
+```
+  
+  (2)散布圖  
+```{r}
+ggplot() + geom_point(data=td,aes(x=date,y=cases,colour="毒品")) +   geom_smooth(data=td,aes(x=date, y=cases,colour="毒品"))+geom_point(data=tt,aes(x=date,y=cases,colour="其餘案件")) +   geom_smooth(data=tt,aes(x=date, y=cases,colour="其餘案件"))+scale_colour_manual("",values = c("毒品" = hue_pal()(4)[1],"其餘案件" = hue_pal()(4)[3]))+labs(title="104年台灣毒品與案件散布圖",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+
+```
+  
+  (3)條形圖  
+```{r}
+ggplot()+geom_bar(data=td,aes(x=date,y=cases,alpha=0.6),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=tt,aes(x=date,y=cases,alpha=0.6),stat = "identity",fill =hue_pal()(4)[3], width = 1)+labs(title="104年台灣毒品與案件條形圖",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+```
+  
+### #補充資料  
+因為圖片太多，故不一一放上來，有興趣的話可參考如下連結:  
+* [台灣各地毒品&犯罪折線圖](https://cinnyhu.github.io/Class/Week1/輔助資料/HW2_1_.html)  
+* [台灣各地毒品&犯罪散布圖](https://cinnyhu.github.io/Class/Week1/輔助資料/HW2_2_.html)  
+* [台灣各地毒品&犯罪條形圖](https://cinnyhu.github.io/Class/Week1/輔助資料/HW2_3_.html)  
+  
+## #總結
+如圖所示，我們得知非毒品的案件數大致是平穩的。但我們可以看見，在毒品案件數到達高峰時,對應的其餘案件數相對減少。且考慮到被捕後應有幾天的延遲，可以得出毒品與犯罪確實有很大的關聯，兩者成負相關。
