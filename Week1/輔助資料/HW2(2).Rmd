@@ -1,0 +1,23 @@
+---
+title: "台灣各地散布圖"
+---
+![圖片介紹](D:\R_Data/s_taibei.png)
+![圖片介紹](D:\R_Data/s_xinbei.png)
+![圖片介紹](D:\R_Data/s_taoyuan.png)
+![圖片介紹](D:\R_Data/s_taizhong.png)
+![圖片介紹](D:\R_Data/p2.png)
+![圖片介紹](D:\R_Data/p2_1.png)
+![圖片介紹](D:\R_Data/p2_2.png)
+![圖片介紹](D:\R_Data/p2_3.png)
+![圖片介紹](D:\R_Data/p2_4.png)
+![圖片介紹](D:\R_Data/p2_5.png)
+![圖片介紹](D:\R_Data/p2_6.png)
+![圖片介紹](D:\R_Data/p2_7.png)
+![圖片介紹](D:\R_Data/p2_8.png)
+![圖片介紹](D:\R_Data/p2_9.png)
+![圖片介紹](D:\R_Data/p2_10.png)
+![圖片介紹](D:\R_Data/p2_11.png)
+![圖片介紹](D:\R_Data/p2_12.png)
+![圖片介紹](D:\R_Data/p2_13.png)
+![圖片介紹](D:\R_Data/p2_14.png)
+![圖片介紹](D:\R_Data/p2_15.png)

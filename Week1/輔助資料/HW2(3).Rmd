@@ -1,0 +1,23 @@
+---
+title: "台灣各地條型圖"
+---
+![圖片介紹](D:\R_Data/t_taibei.png)
+![圖片介紹](D:\R_Data/t_xinbei.png)
+![圖片介紹](D:\R_Data/t_taoyuan.png)
+![圖片介紹](D:\R_Data/t_taizhong.png)
+![圖片介紹](D:\R_Data/p3.png)
+![圖片介紹](D:\R_Data/p3_1.png)
+![圖片介紹](D:\R_Data/p3_2.png)
+![圖片介紹](D:\R_Data/p3_3.png)
+![圖片介紹](D:\R_Data/p3_4.png)
+![圖片介紹](D:\R_Data/p3_5.png)
+![圖片介紹](D:\R_Data/p3_6.png)
+![圖片介紹](D:\R_Data/p3_7.png)
+![圖片介紹](D:\R_Data/p3_8.png)
+![圖片介紹](D:\R_Data/p3_9.png)
+![圖片介紹](D:\R_Data/p3_10.png)
+![圖片介紹](D:\R_Data/p3_11.png)
+![圖片介紹](D:\R_Data/p3_12.png)
+![圖片介紹](D:\R_Data/p3_13.png)
+![圖片介紹](D:\R_Data/p3_14.png)
+![圖片介紹](D:\R_Data/p3_15.png)

@@ -1,0 +1,23 @@
+---
+title: "台灣各地折線圖"
+---
+![圖片介紹](D:\R_Data/zh_taibei.png)
+![圖片介紹](D:\R_Data/zh_xinbei.png)
+![圖片介紹](D:\R_Data/zh_tao.png)
+![圖片介紹](D:\R_Data/zh_taizhong.png)
+![圖片介紹](D:\R_Data/p1.png)
+![圖片介紹](D:\R_Data/p1_1.png)
+![圖片介紹](D:\R_Data/p1_2.png)
+![圖片介紹](D:\R_Data/p1_3.png)
+![圖片介紹](D:\R_Data/p1_4.png)
+![圖片介紹](D:\R_Data/p1_5.png)
+![圖片介紹](D:\R_Data/p1_6.png)
+![圖片介紹](D:\R_Data/p1_7.png)
+![圖片介紹](D:\R_Data/p1_8.png)
+![圖片介紹](D:\R_Data/p1_9.png)
+![圖片介紹](D:\R_Data/p1_10.png)
+![圖片介紹](D:\R_Data/p1_11.png)
+![圖片介紹](D:\R_Data/p1_12.png)
+![圖片介紹](D:\R_Data/p1_13.png)
+![圖片介紹](D:\R_Data/p1_14.png)
+![圖片介紹](D:\R_Data/p1_15.png)
