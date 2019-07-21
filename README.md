@@ -40,7 +40,12 @@
   * In class
     * Learn Data-Visualization
   * At home
-    * Finish my [H.W.2](https://cinnyhu.github.io/Class/Week1/HW2.html)
+    * Finish my [H.W.2](https://cinnyhu.github.io/Class/Week1/HW2.html)<br>
+    
+19/7/18
+  * In class
+  * At home
+   * [H.W.3](https://cinnyhu.github.io/Class/Week2/HW3.html)
 <br>
 
 > ### Week 3
