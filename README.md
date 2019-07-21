@@ -32,10 +32,15 @@
    * Learn how to tidy data(<<[R for Data Science](https://r4ds.had.co.nz/)>>)
  * At home
    * Learn R
-   * Finishing my lovely [H.W.](https://cinnyhu.github.io/Class/Week1/fanzui.html)
+   * Finishing my lovely [H.W.1](https://cinnyhu.github.io/Class/Week1/fanzui.html)
 <br>
 
 > ### Week 2
+ 19/7/15
+  * In class
+    * Learn Data-Visualization
+  * At home
+    * Finish my [H.W.2](https://cinnyhu.github.io/Class/Week1/HW2.html)
 <br>
 
 > ### Week 3
