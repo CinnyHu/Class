@@ -1,0 +1,153 @@
+---
+title: "文字雲"
+author: "CinnyHu"
+date: "2019/7/21"
+---
+## # 前言  
+好奇行政院是幹蛤的....  
+[資料](https://data.gov.tw/dataset/6420)  
+## # 代碼
+```{r}
+library(NLP)
+library(tm)
+library(jiebaRD)
+library(jiebaR)
+library(RColorBrewer)
+library(wordcloud)
+filenames <- list.files(getwd(), pattern="xingzhengyuan.txt")
+files <- lapply(filenames, readLines)
+docs <- Corpus(VectorSource(files))
+toSpace <- content_transformer(function(x, pattern) {
+  return (gsub(pattern, " ", x))
+}
+)
+```
+
+```{r}
+docs <- tm_map(docs, toSpace, "日")
+docs <- tm_map(docs, toSpace, "年")
+docs <- tm_map(docs, toSpace, "月")
+docs <- tm_map(docs, toSpace, "我")
+docs <- tm_map(docs, toSpace, "國")
+docs <- tm_map(docs, toSpace, "行政院")
+docs <- tm_map(docs, toSpace, "院長")
+docs <- tm_map(docs, toSpace, "政府")
+docs <- tm_map(docs, toSpace, "應")
+docs <- tm_map(docs, toSpace, "由")
+docs <- tm_map(docs, toSpace, "部分")
+docs <- tm_map(docs, toSpace, "積極")
+docs <- tm_map(docs, toSpace, "單位")
+docs <- tm_map(docs, toSpace, "項")
+docs <- tm_map(docs, toSpace, "方案")
+docs <- tm_map(docs, toSpace, "除")
+docs <- tm_map(docs, toSpace, "此外")
+docs <- tm_map(docs, toSpace, "特")
+docs <- tm_map(docs, toSpace, "副")
+docs <- tm_map(docs, toSpace, "度")
+docs <- tm_map(docs, toSpace, "全")
+docs <- tm_map(docs, toSpace, "選")
+docs <- tm_map(docs, toSpace, "的")
+docs <- tm_map(docs, toSpace, "及")
+docs <- tm_map(docs, toSpace, "與")
+docs <- tm_map(docs, toSpace, "t")
+docs <- tm_map(docs, toSpace, "讓")
+docs <- tm_map(docs, toSpace, "以")
+docs <- tm_map(docs, toSpace, "也")
+docs <- tm_map(docs, toSpace, "今")
+docs <- tm_map(docs, toSpace, "並")
+docs <- tm_map(docs, toSpace, "各")
+docs <- tm_map(docs, toSpace, "請")
+docs <- tm_map(docs, toSpace, "或")
+docs <- tm_map(docs, toSpace, "等")
+docs <- tm_map(docs, toSpace, "且")
+docs <- tm_map(docs, toSpace, "其")
+docs <- tm_map(docs, toSpace, "要")
+docs <- tm_map(docs, toSpace, "從")
+docs <- tm_map(docs, toSpace, "家")
+docs <- tm_map(docs, toSpace, "上")
+docs <- tm_map(docs, toSpace, "台")
+docs <- tm_map(docs, toSpace, "更")
+docs <- tm_map(docs, toSpace, "下")
+docs <- tm_map(docs, toSpace, "在")
+docs <- tm_map(docs, toSpace, "目前")
+docs <- tm_map(docs, toSpace, "包括")
+docs <- tm_map(docs, toSpace, "外")
+docs <- tm_map(docs, toSpace, "能")
+docs <- tm_map(docs, toSpace, "多")
+docs <- tm_map(docs, toSpace, "新")
+docs <- tm_map(docs, toSpace, "是")
+docs <- tm_map(docs, toSpace, "不")
+docs <- tm_map(docs, toSpace, "h")
+docs <- tm_map(docs, toSpace, "G")
+docs <- tm_map(docs, toSpace, "而")
+docs <- tm_map(docs, toSpace, "一")
+docs <- tm_map(docs, toSpace, "為")
+docs <- tm_map(docs, toSpace, "中")
+docs <- tm_map(docs, toSpace, "會")
+docs <- tm_map(docs, toSpace, "因此")
+docs <- tm_map(docs, toSpace, "第")
+docs <- tm_map(docs, toSpace, "有")
+docs <- tm_map(docs, toSpace, "人")
+docs <- tm_map(docs, toSpace, "已")
+docs <- tm_map(docs, toSpace, "同時")
+docs <- tm_map(docs, toSpace, "本")
+docs <- tm_map(docs, toSpace, "前")
+docs <- tm_map(docs, toSpace, "後")
+docs <- tm_map(docs, toSpace, "可")
+docs <- tm_map(docs, toSpace, "感謝")
+docs <- tm_map(docs, toSpace, "因")
+docs <- tm_map(docs, toSpace, "將")
+docs <- tm_map(docs, toSpace, "午")
+docs <- tm_map(docs, toSpace, "才")
+docs <- tm_map(docs, toSpace, "希望")
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, stripWhitespace)
+docs
+```
+
+```{r}
+
+mixseg = worker()
+jieba_tokenizer=function(d){
+  unlist(segment(d[[1]],mixseg))
+}
+seg = lapply(docs, jieba_tokenizer)
+xzy = as.data.frame(table(unlist(seg)))
+xzy = xzy[order(xzy$Freq,decreasing=TRUE), ]
+library(knitr)
+kable(head(xzy), format = "markdown")
+
+
+```
+* 這裡有很大的問題,程序在script裡可以運行,但在這裡無法運行,代碼如下:  
+```{r}
+##mixseg = worker()
+
+##jieba_tokenizer=function(d){
+##  unlist(segment(d[[1]],mixseg))
+##}
+
+##seg = lapply(docs, jieba_tokenizer)
+##xzy = as.data.frame(table(unlist(seg)))
+##par(family=("Heiti TC Light"))
+##wordcloud(xzy$Var1,xzy$Freq,
+##          scale=c(5,0.1),min.freq=50,max.words=150,
+##          random.order=TRUE, random.color=FALSE,
+##          rot.per=.1, colors=brewer.pal(8, "Dark2"),
+##          ordered.colors=FALSE,use.r.layout=FALSE,
+##          fixed.asp=TRUE)
+```
+* script裡的圖:
+
+
+![](D:\R_Data/Rplot.png)
+
+
+## #總結  
+首先,知道了這裡的長官姓蘇，然後下面有個名字，於是可以大膽猜測行政院長叫蘇貞昌......  
+然後，這裡似乎是決定政策，擬定法案、條文的地方。  
+跟社會有很大關聯......  
+似乎常用PDF開會或公布資料。  
+我不確定他們是否充滿智慧或足夠努力......  
+反正大概知道這裡在整啥了。
