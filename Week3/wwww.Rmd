@@ -1,9 +1,39 @@
 ---
-title: "107年台北市時辰與交通事故型態"
-author: "CinnyHu"
+title: "Taipei accident analysis"
 date: "2019/7/25"
-output: html_document
 ---
+
+---
+
+#### 108夏季學院DSP第6組-台北交通
+組員:
+[黃科銓](https://kevinhuang102888.github.io/kevinhuang/week3/final%20project/taipei_accident)
+[楊岳錩](https://wilson1304983.github.io/666666/week3/final.html)
+[胡煜欣](https://cinnyhu.github.io/Class/Week3/wwww.html)
+
+
+## 概論
+
+
+
+我們在**臺北市資料大平台**裡，找到一份有趣的資料——「交通事故資訊」，於是想從這份資料，探究***什麼樣的人比較容易發生交通事故(who)***、***什麼的時段比較容易發生交通事故(when)***以及***什麼區域最容易發生交通事故(where)***等三個問題，目前這頁網站主要討論第三個問題，想以「區域」的角度看臺北市交通事故的問題，並試圖提供每個區域最容易出車禍的地點資訊，以方便駕駛、行人經過該路段可以更加小心謹慎一些。
+
+
+
+## 資料介紹
+
+
+
+此資料來自**臺北市資料大平台**，以「107年-臺北市A1及A2類交通事故明細.csv」此資料為主要分析，裡面的column有「發生年、發生月、發生日、發生時	發生分、處理別、區序、肇事地點、死亡人數、受傷人數、當事人序、車種、性別、年齡、受傷程度、天候、速限、道路型態以及事故位置」，而總資料數有50330筆。
+
+
+[臺北市交通事故](https://data.taipei/#/dataset/detail?id=2f238b4f-1b27-4085-93e9-d684ef0e2735)
+
+
+## Code
+
+
+1.解壓,讀數據  
 ```{r}
 #解壓
 library(dplyr)
@@ -33,6 +63,12 @@ a <- read_csv("107jiaotong.csv",col_types = cols(
 #命名道路型態
 l<-c("有遮斷器","無遮斷器","三岔路","四岔路","多岔路","隧道","地下道","橋樑","涵洞","高架道路","彎曲路及附近","坡路","巷弄","直路","其他","圓環","廣場")
 
+```
+
+
+2.整理
+  * 按時間篩,循環道路型態  
+```{r}
 #取數據
 v=vector(mode="integer",length=17)
 b<-filter(a,發生時==0)
@@ -226,7 +262,7 @@ for(j in 1:17)
   v[j]<-count(d)
 }
 s23 <- tibble(case=l,"23時"=as.integer(v[1:17]))
-
+#合併
 t0<-merge(s0, s1, by = "case")
 t0<-merge(t0, s2, by = "case")
 t0<-merge(t0, s3, by = "case")
@@ -250,17 +286,18 @@ t0<-merge(t0, s20, by = "case")
 t0<-merge(t0, s21, by = "case")
 t0<-merge(t0, s22, by = "case")
 t0<-merge(t0, s23, by = "case")
-t0
-
 #方便繪圖
 tt0<-gather(t0,`0時`,`1時`,`2時`,`3時`,`4時`,`5時`,`6時`,`7時`,`8時`,`9時`,`10時`,`11時`,`12時`,`13時`,`14時`,`15時`,`16時`,`17時`,`18時`,`19時`,`20時`,`21時`,`22時`,`23時`
   , key = "time", value = "cases")
 #順序
 tt0$time2 <- factor(tt0$time,levels=unique(tt0$time))
 
+```
+3.畫圖
+```{r}
+
 #堆疊直方圖
 ggplot(data=tt0,aes(x=time2,y=cases,fill=case))+geom_bar(stat="identity")+labs(title = "107年台北市時辰與交通事故型態直方圖",x='',y="事故數")+theme_bw()+theme(panel.border = element_blank())+ theme(axis.text.x = element_text(angle = 90))
-
 
 ```
 

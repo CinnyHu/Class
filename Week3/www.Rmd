@@ -1,9 +1,39 @@
 ---
-title: "107台灣交通事故案數"
-author: "CinnyHu"
+title: "Taipei accident analysis"
 date: "2019/7/25"
-output: html_document
 ---
+
+---
+
+#### 108夏季學院DSP第6組-台北交通
+組員:
+[黃科銓](https://kevinhuang102888.github.io/kevinhuang/week3/final%20project/taipei_accident)
+[楊岳錩](https://wilson1304983.github.io/666666/week3/final.html)
+[胡煜欣](https://cinnyhu.github.io/Class/Week3/wwww.html)
+
+
+## 概論
+
+
+
+我們在**臺北市資料大平台**裡，找到一份有趣的資料——「交通事故資訊」，於是想從這份資料，探究***什麼樣的人比較容易發生交通事故(who)***、***什麼的時段比較容易發生交通事故(when)***以及***什麼區域最容易發生交通事故(where)***等三個問題，目前這頁網站主要討論第三個問題，想以「區域」的角度看臺北市交通事故的問題，並試圖提供每個區域最容易出車禍的地點資訊，以方便駕駛、行人經過該路段可以更加小心謹慎一些。
+
+
+
+## 資料介紹
+
+
+
+此資料來自**臺北市資料大平台**，以「107年-臺北市A1及A2類交通事故明細.csv」此資料為主要分析，裡面的column有「發生年、發生月、發生日、發生時	發生分、處理別、區序、肇事地點、死亡人數、受傷人數、當事人序、車種、性別、年齡、受傷程度、天候、速限、道路型態以及事故位置」，而總資料數有50330筆。
+
+
+[臺北市交通事故](https://data.taipei/#/dataset/detail?id=2f238b4f-1b27-4085-93e9-d684ef0e2735)
+
+
+## Code
+
+
+1.解壓,讀數據  
 ```{r}
 #解壓
 library(tidyverse)
@@ -32,6 +62,12 @@ a <- read_csv("107jiaotong.csv",col_types = cols(
   `9事故位置` = col_integer()
 ), locale = locale(encoding = "BIG5"))
 
+```
+2.整理  
+
+
+  * 先按月篩,再按日篩
+```{r}
 #數據提取
 v=vector(mode="integer",length=31)
 b<-filter(a,發生月==1)
@@ -41,7 +77,7 @@ for(j in 1:31)
   v[j]<-count(d)
 }
 s1 <- tibble(date=ymd(20180101:20180131),case=as.integer(v[1:31]))
-s1
+
 v=vector(mode="integer",length=28)
 b<-filter(a,發生月==2)
 for(j in 1:28)
@@ -140,7 +176,7 @@ for(j in 1:31)
   v[j]<-count(d)
 }
 s12 <- tibble(date=ymd(20181201:20181231),case=as.integer(v[1:31]))
-
+#合併
 s<-(s1%>%
       bind_rows(s2)%>%
       bind_rows(s3)%>%
@@ -154,12 +190,34 @@ s<-(s1%>%
       bind_rows(s11)%>%
       bind_rows(s12))
 
+```
+
+
+3.畫圖
+
+
+  *全年案數  
+```{r}
 #畫條形圖
 ggplot()+geom_bar(data=s1,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s2,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s3,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s4,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())+geom_bar(data=s5,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s6,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s7,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s8,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+geom_bar(data=s9,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s10,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s11,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s12,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+scale_x_date(date_breaks = "1 month")+ theme(axis.text.x = element_text(angle = 90))
 
-ggplot()+geom_bar(data=s1,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s2,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s3,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s4,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+```
 
+
+  * 1~4月案數  
+```{r}
+ggplot()+geom_bar(data=s1,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s2,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s3,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s4,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+```
+
+
+  * 5~8月案數
+```{r}
 ggplot()+geom_bar(data=s5,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s6,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s7,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s8,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+```
+
+
+  * 9~12月案數
+```{r}
 
 ggplot()+geom_bar(data=s9,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s10,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s11,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s12,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
 
