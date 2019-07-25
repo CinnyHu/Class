@@ -1,0 +1,167 @@
+---
+title: "107台灣交通事故案數"
+author: "CinnyHu"
+date: "2019/7/25"
+output: html_document
+---
+```{r}
+#解壓
+library(tidyverse)
+library(lubridate)
+library(scales)
+#轉成int
+a <- read_csv("107jiaotong.csv",col_types = cols(
+  發生年 = col_integer(),
+  發生月 = col_integer(),
+  發生日 = col_integer(),
+  發生時 = col_integer(),
+  發生分 = col_integer(),
+  處理別 = col_integer(),
+  區序 = col_character(),
+  肇事地點 = col_character(),
+  死亡人數 = col_integer(),
+  受傷人數 = col_integer(),
+  當事人序 = col_integer(),
+  車種 = col_character(),
+  性別 = col_integer(),
+  年齡 = col_integer(),
+  受傷程度 = col_integer(),
+  `4天候` = col_integer(),
+  `7速限` = col_integer(),
+  `8道路型態` = col_integer(),
+  `9事故位置` = col_integer()
+), locale = locale(encoding = "BIG5"))
+
+#數據提取
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==1)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s1 <- tibble(date=ymd(20180101:20180131),case=as.integer(v[1:31]))
+s1
+v=vector(mode="integer",length=28)
+b<-filter(a,發生月==2)
+for(j in 1:28)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s2 <- tibble(date=ymd(20180201:20180228),case=as.integer(v[1:28]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==3)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s3 <- tibble(date=ymd(20180301:20180331),case=as.integer(v[1:31]))
+
+v=vector(mode="integer",length=30)
+b<-filter(a,發生月==4)
+for(j in 1:30)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s4 <- tibble(date=ymd(20180401:20180430),case=as.integer(v[1:30]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==5)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s5 <- tibble(date=ymd(20180501:20180531),case=as.integer(v[1:31]))
+
+v=vector(mode="integer",length=30)
+b<-filter(a,發生月==6)
+for(j in 1:30)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s6 <- tibble(date=ymd(20180601:20180630),case=as.integer(v[1:30]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==7)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s7 <- tibble(date=ymd(20180701:20180731),case=as.integer(v[1:31]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==8)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s8 <- tibble(date=ymd(20180801:20180831),case=as.integer(v[1:31]))
+
+v=vector(mode="integer",length=30)
+b<-filter(a,發生月==9)
+for(j in 1:30)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s9 <- tibble(date=ymd(20180901:20180930),case=as.integer(v[1:30]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==10)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s10 <- tibble(date=ymd(20181001:20181031),case=as.integer(v[1:31]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==11)
+for(j in 1:30)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s11 <- tibble(date=ymd(20181101:20181130),case=as.integer(v[1:30]))
+
+v=vector(mode="integer",length=31)
+b<-filter(a,發生月==12)
+for(j in 1:31)
+{
+  d = filter(b, 發生日 == j)
+  v[j]<-count(d)
+}
+s12 <- tibble(date=ymd(20181201:20181231),case=as.integer(v[1:31]))
+
+s<-(s1%>%
+      bind_rows(s2)%>%
+      bind_rows(s3)%>%
+      bind_rows(s4)%>%
+      bind_rows(s5)%>%
+      bind_rows(s6)%>%
+      bind_rows(s7)%>%
+      bind_rows(s8)%>%
+      bind_rows(s9)%>%
+      bind_rows(s10)%>%
+      bind_rows(s11)%>%
+      bind_rows(s12))
+
+#畫條形圖
+ggplot()+geom_bar(data=s1,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s2,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s3,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s4,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())+geom_bar(data=s5,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s6,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s7,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s8,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+geom_bar(data=s9,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s10,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s11,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s12,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+scale_x_date(date_breaks = "1 month")+ theme(axis.text.x = element_text(angle = 90))
+
+ggplot()+geom_bar(data=s1,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s2,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s3,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s4,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+
+ggplot()+geom_bar(data=s5,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s6,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s7,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s8,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+
+ggplot()+geom_bar(data=s9,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[1], width = 1)+geom_bar(data=s10,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[2], width = 1)+geom_bar(data=s11,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[3], width = 1)+geom_bar(data=s12,aes(x=date,y=case),stat = "identity",fill =hue_pal()(4)[4], width = 1)+labs(title="107年台灣交通事故案數",x="",y="案件數") +theme_bw()+theme(panel.border = element_blank())
+
+```
+
